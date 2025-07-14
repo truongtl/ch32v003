@@ -40,6 +40,7 @@ SECTIONS
     .text :
     {
       . = ALIGN(4);
+      *(.vector)
       *(.text)
       *(.text.*)
       *(.rodata)

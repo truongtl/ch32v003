@@ -60,7 +60,7 @@ void TIM1TRG_Handler(void) __attribute__((weak, alias("Dummy_Handler")));
 void TIM1CC_Handler(void) __attribute__((weak, alias("Dummy_Handler")));
 void TIM2_Handler(void) __attribute__((weak, alias("Dummy_Handler")));
 
-__attribute__ ((section(".text"))) void (*const vector_table[])(void) =
+__attribute__ ((section(".vector"))) void (*const vector_table[])(void) =
 {
     Dummy_Handler,
     NMI_Handler,
