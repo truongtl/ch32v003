@@ -60,10 +60,9 @@ void TIM1TRG_Handler(void) __attribute__((weak, alias("Dummy_Handler")));
 void TIM1CC_Handler(void) __attribute__((weak, alias("Dummy_Handler")));
 void TIM2_Handler(void) __attribute__((weak, alias("Dummy_Handler")));
 
-__attribute__ ((section(".vectors"))) void (*const vector_table[])(void) =
+__attribute__ ((section(".text"))) void (*const vector_table[])(void) =
 {
-    (void (*)(void)) &_eusrstack,
-    Reset_Handler,
+    Dummy_Handler,
     NMI_Handler,
     HardFault_Handler,
     Dummy_Handler,
@@ -103,7 +102,7 @@ __attribute__ ((section(".vectors"))) void (*const vector_table[])(void) =
     TIM2_Handler
 };
 
-void Reset_Handler(void)
+__attribute__((section(".init"))) void Reset_Handler(void)
 {
     __asm__ volatile (
         // Set global pointer
@@ -138,7 +137,7 @@ void Reset_Handler(void)
         "li t0, 0x3\n"
         "csrw 0x804, t0\n"
         // Setup mtvec
-        "la t0, _start\n"
+        "la t0, vector_table\n"
         "ori t0, t0, 3\n"
         "csrw mtvec, t0\n"
     );

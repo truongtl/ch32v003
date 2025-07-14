@@ -13,7 +13,7 @@
 ######################################
 # target
 ######################################
-TARGET = ch32v003_prj
+TARGET = build
 
 
 ######################################
@@ -56,9 +56,11 @@ library/Peripheral/src/ch32v00x_tim.c \
 library/Peripheral/src/ch32v00x_usart.c \
 library/Peripheral/src/ch32v00x_wwdg.c
 
+C_SOURCES += library/Startup/startup_ch32v00x.c
+
 # ASM sources
-ASM_SOURCES =  \
-library/Startup/startup_ch32v00x.s
+# ASM_SOURCES =  \
+# library/Startup/startup_ch32v00x.s
 
 ##########################################################################################################################
 # modified by Ngo Hung Cuong
@@ -180,8 +182,8 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
 # list of ASM program objects
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
-vpath %.s $(sort $(dir $(ASM_SOURCES)))
+# OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
+# vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) 
 	$(CC) -c $(CFLAGS) -g -std=gnu99 -MT"$(@)" -c "$<" -o "$@"
